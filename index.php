@@ -13,9 +13,9 @@ $result = $connection->query($sql);
 </head>
 <body>
 
-    <h1>Elys Book Archive</h1>
-
-    <p>Qui appariranno i libri salvati nel database.</p>
+   <h1>Elys Book Archive</h1>
+   <a href="create.php">Aggiungi un nuovo libro</a>
+   <p>Qui appariranno i libri salvati nel database.</p>
 
     <?php
     if ($result->num_rows > 0) {
