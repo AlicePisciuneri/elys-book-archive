@@ -13,9 +13,11 @@ $result = $connection->query($sql);
 </head>
 <body>
 
-   <h1>Elys Book Archive</h1>
-   <a href="create.php">Aggiungi un nuovo libro</a>
-   <p>Qui appariranno i libri salvati nel database.</p>
+    <h1>Elys Book Archive</h1>
+
+    <a href="create.php">Aggiungi un nuovo libro</a>
+
+    <p>Qui appariranno i libri salvati nel database.</p>
 
     <?php
     if ($result->num_rows > 0) {
@@ -24,6 +26,7 @@ $result = $connection->query($sql);
             echo "<p>Autore: " . $book["author"] . "</p>";
             echo "<p>Genere: " . $book["genre"] . "</p>";
             echo "<p>Nota: " . $book["note"] . "</p>";
+            echo "<a href='delete.php?id=" . $book["id"] . "'>Elimina</a>";
             echo "<hr>";
         }
     } else {
@@ -33,3 +36,4 @@ $result = $connection->query($sql);
 
 </body>
 </html>
+
