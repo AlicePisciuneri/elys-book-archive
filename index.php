@@ -1,4 +1,8 @@
 <?php
+
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 require_once "database.php";
 
 $sql = "SELECT * FROM books ORDER BY created_at DESC";
@@ -26,12 +30,14 @@ $result = $connection->query($sql);
             echo "<p>Autore: " . $book["author"] . "</p>";
             echo "<p>Genere: " . $book["genre"] . "</p>";
             echo "<p>Nota: " . $book["note"] . "</p>";
+            echo "<a href='edit.php?id=" . $book["id"] . "'>Modifica</a>";
+            echo " | ";
             echo "<a href='delete.php?id=" . $book["id"] . "'>Elimina</a>";
             echo "<hr>";
         }
-    } else {
-        echo "<p>Nessun libro salvato.</p>";
-    }
+    }  else {
+            echo "<p>Nessun libro salvato.</p>";
+}
     ?>
 
 </body>
