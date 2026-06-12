@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aggiungi libro</title>
+    <title>Add new book</title>
+    <link rel="stylesheet" href="style.css">
     <style>
         
         form div {
@@ -27,34 +28,34 @@
 </head>
 <body>
 
-    <h1>Aggiungi un libro</h1>
+    <h1>Update a book</h1>
 
     <form action="store.php" method="POST">
         <div>
-            <label for="title">Titolo</label>
+            <label for="title">Title</label>
             <input type="text" id="title" name="title" required>
         </div>
 
         <div>
-            <label for="author">Autore</label>
+            <label for="author">Author</label>
             <input type="text" id="author" name="author" required>
         </div>
 
         <div>
-            <label for="genre">Genere</label>
+            <label for="genre">Genre</label>
             <input type="text" id="genre" name="genre">
         </div>
 
         <div>
-            <label for="note">Nota</label>
+            <label for="note">Note</label>
             <textarea id="note" name="note" rows="4"></textarea>
         </div>
 
-        <button type="submit">Salva libro</button>
+        <button type="submit">Save</button>
     </form>
 
     <div style="margin-top: 20px;">
-        <a href="index.php">Torna alla lista</a>
+        <a href="index.php">Go back to the list</a>
     </div>
 
 </body>

@@ -1,0 +1,111 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0f172a;
+    color: #cbd5e1;
+    font-family: Arial, sans-serif;
+    padding: 40px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.page-container {
+    width: 100%;
+    max-width: 900px;
+}
+
+h1 {
+    color: #f8fafc;
+    margin-bottom: 20px;
+}
+
+a {
+    color: #38bdf8;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.book-card {
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
+    max-width: 600px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.book-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.book-card h2 {
+    color: #f8fafc;
+    margin-bottom: 15px;
+}
+
+.book-card p {
+    margin-bottom: 10px;
+}
+
+.actions {
+    margin-top: 15px;
+}
+
+.actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    text-decoration: none;
+    transform: translateY(-2px);
+}
+
+.btn-edit {
+    background-color: #38bdf8;
+    color: #0f172a;
+}
+
+.btn-edit:hover {
+    background-color: #7dd3fc;
+}
+
+.btn-delete {
+    background-color: #ef4444;
+    color: #ffffff;
+}
+
+.btn-delete:hover {
+    background-color: #f87171;
+}
+
+.btn-view {
+    background-color: #22c55e;
+    color: white;
+}
+
+.btn-view:hover {
+    background-color: #4ade80;
+}
