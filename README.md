@@ -50,6 +50,7 @@ elys-book-archive
 ├── delete.php
 ├── database.php
 ├── style.css
+├── database.sql
 │
 └── screenshots
     ├── home.png
@@ -68,12 +69,9 @@ elys-book-archive
 
 ### Add New Book
 
-![Create](screenshots/show.png)
+![Show](screenshots/show.png)
 
-### Book Details
 
-![Show](screenshots/edit
-.png)
 
 ### Edit Book
 
@@ -101,7 +99,7 @@ C:\MAMP\htdocs
 elys_book_archive
 ```
 
-4. Import the database structure
+4. Import the database.sql file into your MySQL database
 
 5. Start Apache and MySQL from MAMP
 
@@ -110,6 +108,7 @@ elys_book_archive
 ```txt
 http://localhost:8888/elys-book-archive/index.php
 ```
+
 
 ---
 
