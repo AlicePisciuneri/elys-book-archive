@@ -1,37 +1,131 @@
 # Elys Book Archive
 
-Mini progetto backend sviluppato in PHP e MySQL per gestire un archivio personale di libri e note di lettura.
+A PHP and MySQL CRUD application designed to manage a personal book collection.
 
-## 🚀 Features
+This project was developed to practice backend development fundamentals, database management and server-side logic using PHP and MySQL.
 
-- **Visualizzazione:** Mostra la lista dei libri salvati nell'archivio.
-- **Inserimento rapido:** Form dedicato per aggiungere nuovi titoli e note.
-- **Architettura:** Struttura CRUD di base operante su database relazionale.
-- **Ambiente locale:** Configurato e testato per girare su stack MAMP.
+---
 
-## 🛠️ Tecnologie Utilizzate
+## Features
 
-- **Backend:** PHP 8.x
-- **Database:** MySQL
-- **Frontend:** HTML5, CSS3
-- **Ambiente di sviluppo:** MAMP, Git & GitHub
+✅ Create new books
 
-## 🎯 Obiettivo del Progetto
+✅ View all books
 
-Questo progetto nasce come semplice esercizio pratico backend per comprendere meglio:
-- La connessione nativa tra PHP e database relazionali (tramite l'estensione `mysqli`).
-- La gestione e la sanificazione dei dati inviati tramite form (richieste `POST`).
-- La scrittura di query SQL fondamentali (SELECT, INSERT, DELETE).
-- Il flusso logico di un'applicazione CRUD (Create, Read, Update, Delete).
+✅ View book details
 
-## 📦 Struttura del Progetto
+✅ Edit existing books
+
+✅ Delete books with confirmation
+
+✅ MySQL database integration
+
+✅ Responsive dark-themed interface
+
+---
+
+## Tech Stack
+
+- PHP
+- MySQL
+- HTML5
+- CSS3
+- Git
+- GitHub
+- MAMP
+
+---
+
+## Project Structure
 
 ```txt
-elys-book-archive/
-├── database/
-│   └── schema.sql        # Dump del database per la creazione delle tabelle
-├── connection.php        # Configurazione e connessione a MySQL
-├── index.php             # Homepage con la lista dei libri (Read)
-├── create.php            # Form di inserimento (Create)
-├── store.php             # Script PHP di elaborazione dati e salvataggio
-└── README.md
+elys-book-archive
+│
+├── index.php
+├── create.php
+├── store.php
+├── show.php
+├── edit.php
+├── update.php
+├── delete.php
+├── database.php
+├── style.css
+│
+└── screenshots
+    ├── home.png
+    ├── create.png
+    ├── show.png
+    └── edit.png
+```
+
+---
+
+## Screenshots
+
+### Home Page
+
+![Home](screenshots/home.png)
+
+### Add New Book
+
+![Create](screenshots/show.png)
+
+### Book Details
+
+![Show](screenshots/edit
+.png)
+
+### Edit Book
+
+![Edit](screenshots/edit.png)
+
+---
+
+## Installation
+
+1. Clone the repository
+
+```bash
+git clone https://github.com/TUO-USERNAME/elys-book-archive.git
+```
+
+2. Move the project inside:
+
+```txt
+C:\MAMP\htdocs
+```
+
+3. Create a MySQL database named:
+
+```txt
+elys_book_archive
+```
+
+4. Import the database structure
+
+5. Start Apache and MySQL from MAMP
+
+6. Open:
+
+```txt
+http://localhost:8888/elys-book-archive/index.php
+```
+
+---
+
+## Future Improvements
+
+- Search books by title
+- Category filtering
+- User authentication
+- Pagination
+- Custom modal windows
+- Online deployment
+
+---
+
+## Author
+
+Alice Pisciuneri
+
+Frontend Developer & Digital Content Creator
