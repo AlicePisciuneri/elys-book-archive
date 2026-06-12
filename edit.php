@@ -35,7 +35,7 @@ if (!$book) {
 </head>
 <body>
 
-    <h1>Modifica libro</h1>
+    <h1>Update book</h1>
 
     <form action="update.php" method="POST">
         <input type="hidden" name="id" value="<?php echo htmlspecialchars($book['id'], ENT_QUOTES, 'UTF-8'); ?>">
