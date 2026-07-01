@@ -5,8 +5,31 @@ error_reporting(E_ALL);
 
 require_once "database.php";
 
-$sql = "SELECT * FROM books ORDER BY created_at DESC";
-$result = $connection->query($sql);
+if (isset($_GET["search"]) && !empty($_GET["search"])) {
+
+    $search = "%" . $_GET["search"] . "%";
+
+    $stmt = $connection->prepare(
+        "SELECT *
+         FROM books
+         WHERE title LIKE ?
+         OR author LIKE ?
+         ORDER BY created_at DESC"
+    );
+
+    $stmt->bind_param("ss", $search, $search);
+
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+
+} else {
+
+    $sql = "SELECT * FROM books ORDER BY created_at DESC";
+
+    $result = $connection->query($sql);
+
+}
 ?>
 
 <!DOCTYPE html>
@@ -35,6 +58,19 @@ $result = $connection->query($sql);
     <a class="btn btn-primary" href="create.php">
         + Add New Book
     </a>
+    <form action="index.php" method="GET" class="search-form">
+
+    <input
+        type="text"
+        name="search"
+        placeholder="Search by title or author..."
+    >
+
+    <button type="submit" class="btn btn-primary">
+        Search
+    </button>
+
+</form>
 
 </div>
 

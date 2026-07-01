@@ -146,3 +146,41 @@ h1 {
     background-color: #7dd3fc;
     text-decoration: none;
 }
+
+.search-form {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0 30px 0;
+}
+
+.search-form input {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #334155;
+    background-color: #1e293b;
+    color: white;
+}
+
+.section-divider {
+    width: 100%;
+    max-width: 500px;
+    margin: 50px auto 40px auto;
+
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    color: #94a3b8;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.section-divider::before,
+.section-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #334155;
+}

@@ -1,3 +1,37 @@
+<?php
+
+$searchTerm = "";
+
+if (isset($_GET["search"])) {
+    $searchTerm = trim($_GET["search"]);
+}
+
+$apiUrl = "";
+
+if (!empty($searchTerm)) {
+    $apiUrl =
+        "https://openlibrary.org/search.json?title=" .
+        urlencode($searchTerm);
+}
+
+$apiResponse = "";
+
+if (!empty($apiUrl)) {
+    $apiResponse = @file_get_contents($apiUrl);
+
+    if ($apiResponse === false) {
+        echo "API request failed";
+    }
+}
+
+$booksFromApi = [];
+
+if (!empty($apiResponse)) {
+    $booksFromApi = json_decode($apiResponse, true);
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -31,8 +65,75 @@
 </head>
 <body>
 
-    <h1>Update a book</h1>
+    <h1>Add a new book</h1>
+    <h2>Search online first</h2>
 
+<p class="subtitle">
+    Search for a book and import its information automatically,
+    or add it manually below.
+</p>
+
+<form method="GET" class="search-form">
+
+    <input
+        type="text"
+        name="search"
+        placeholder="Search a book..."
+    >
+
+    <button type="submit" class="btn btn-primary">
+        Search
+    </button>
+
+</form>
+<?php
+if (!empty($searchTerm)) {
+
+    echo "<p>You searched for: <strong>$searchTerm</strong></p>";
+
+    if ($apiResponse === false || empty($apiResponse)) {
+        echo "<p>API request failed.</p>";
+    }
+}
+
+if (
+    !empty($booksFromApi) &&
+    isset($booksFromApi["docs"])
+) {
+
+    echo "<h3>Results from Open Library</h3>";
+
+    for ($i = 0; $i < 5; $i++) {
+
+        if (!isset($booksFromApi["docs"][$i])) {
+            break;
+        }
+
+        $book = $booksFromApi["docs"][$i];
+
+        echo "<p>";
+
+        if (isset($book["title"])) {
+            echo "<strong>" . $book["title"] . "</strong>";
+        }
+
+        if (isset($book["author_name"][0])) {
+            echo " - " . $book["author_name"][0];
+        }
+
+        echo "</p>";
+    }
+}
+?>
+    
+
+<p class="manual-title">
+    Didn't find your book? Add it manually below.
+</p>
+
+    <div class="section-divider">
+    <span>Manual entry</span>
+</div>
     <form action="store.php" method="POST">
         <div>
             <label for="title">Title</label>
