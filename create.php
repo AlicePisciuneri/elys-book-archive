@@ -64,6 +64,7 @@ if (!empty($apiResponse)) {
     </style>
 </head>
 <body>
+    <div class="page-container">
 
     <h1>Add a new book</h1>
     <h2>Search online first</h2>
@@ -87,15 +88,6 @@ if (!empty($apiResponse)) {
 
 </form>
 <?php
-if (!empty($searchTerm)) {
-
-    echo "<p>You searched for: <strong>$searchTerm</strong></p>";
-
-    if ($apiResponse === false || empty($apiResponse)) {
-        echo "<p>API request failed.</p>";
-    }
-}
-
 if (
     !empty($booksFromApi) &&
     isset($booksFromApi["docs"])
@@ -111,17 +103,25 @@ if (
 
         $book = $booksFromApi["docs"][$i];
 
-        echo "<p>";
+echo "<div class='search-result-item'>";
 
-        if (isset($book["title"])) {
-            echo "<strong>" . $book["title"] . "</strong>";
-        }
+echo "<div class='book-info'>";
 
-        if (isset($book["author_name"][0])) {
-            echo " - " . $book["author_name"][0];
-        }
+if (isset($book["title"])) {
+    echo "<h3>" . $book["title"] . "</h3>";
+}
 
-        echo "</p>";
+if (isset($book["author_name"][0])) {
+    echo "<p class='author'>" . $book["author_name"][0] . "</p>";
+}
+
+echo "</div>";
+
+echo "<button class='btn btn-import'>";
+echo "Import";
+echo "</button>";
+
+echo "</div>";
     }
 }
 ?>
@@ -161,6 +161,6 @@ if (
     <div style="margin-top: 20px;">
         <a href="index.php">Go back to the list</a>
     </div>
-
+    </div
 </body>
 </html>
