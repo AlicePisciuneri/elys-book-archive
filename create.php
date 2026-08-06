@@ -1,4 +1,6 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
 $searchTerm = "";
 
@@ -28,6 +30,16 @@ $booksFromApi = [];
 
 if (!empty($apiResponse)) {
     $booksFromApi = json_decode($apiResponse, true);
+}
+$importTitle = "";
+$importAuthor = "";
+
+if (isset($_GET["title"])) {
+    $importTitle = $_GET["title"];
+}
+
+if (isset($_GET["author"])) {
+    $importAuthor = $_GET["author"];
 }
 
 ?>
@@ -117,9 +129,29 @@ if (isset($book["author_name"][0])) {
 
 echo "</div>";
 
+echo "<form action='create.php' method='GET'>";
+
+if (isset($book["title"])) {
+
+    echo "<input
+            type='hidden'
+            name='title'
+            value='" . htmlspecialchars($book["title"]) . "'>";
+}
+
+if (isset($book["author_name"][0])) {
+
+    echo "<input
+            type='hidden'
+            name='author'
+            value='" . htmlspecialchars($book["author_name"][0]) . "'>";
+}
+
 echo "<button class='btn btn-import'>";
 echo "Import";
 echo "</button>";
+
+echo "</form>";
 
 echo "</div>";
     }
@@ -137,12 +169,24 @@ echo "</div>";
     <form action="store.php" method="POST">
         <div>
             <label for="title">Title</label>
-            <input type="text" id="title" name="title" required>
+            <input
+    type="text"
+    id="title"
+    name="title"
+    value="<?php echo htmlspecialchars($importTitle); ?>"
+    required
+>
         </div>
 
         <div>
             <label for="author">Author</label>
-            <input type="text" id="author" name="author" required>
+            <input
+    type="text"
+    id="author"
+    name="author"
+    value="<?php echo htmlspecialchars($importAuthor); ?>"
+    required
+>
         </div>
 
         <div>
@@ -161,6 +205,6 @@ echo "</div>";
     <div style="margin-top: 20px;">
         <a href="index.php">Go back to the list</a>
     </div>
-    </div
+</div>
 </body>
 </html>
