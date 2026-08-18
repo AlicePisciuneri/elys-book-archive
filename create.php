@@ -41,6 +41,11 @@ if (isset($_GET["title"])) {
 if (isset($_GET["author"])) {
     $importAuthor = $_GET["author"];
 }
+$importCover = "";
+
+if (isset($_GET["cover"])) {
+    $importCover = $_GET["cover"];
+}
 
 ?>
 
@@ -56,23 +61,7 @@ if (isset($_GET["author"])) {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         
-        form div {
-            margin-bottom: 15px;
-        }
-
         
-        label {
-            display: block;
-            margin-bottom: 5px; 
-            font-weight: bold;  
-        }
-
-        
-        input[type="text"], textarea {
-            width: 100%;
-            max-width: 300px;
-            padding: 6px;
-        }
     </style>
 </head>
 <body>
@@ -114,6 +103,13 @@ if (
         }
 
         $book = $booksFromApi["docs"][$i];
+$coverId = "";
+
+if (isset($book["cover_i"])) {
+    $coverId = $book["cover_i"];
+}
+echo "<p>Cover ID: " . $coverId . "</p>";
+
 
 echo "<div class='search-result-item'>";
 
@@ -137,6 +133,13 @@ if (isset($book["title"])) {
             type='hidden'
             name='title'
             value='" . htmlspecialchars($book["title"]) . "'>";
+}
+if (!empty($coverId)) {
+
+    echo "<input
+            type='hidden'
+            name='cover'
+            value='" . htmlspecialchars($coverId) . "'>";
 }
 
 if (isset($book["author_name"][0])) {
@@ -188,6 +191,11 @@ echo "</div>";
     required
 >
         </div>
+        <input
+    type="hidden"
+    name="cover_url"
+    value="<?php echo htmlspecialchars($importCover); ?>"
+>
 
         <div>
             <label for="genre">Genre</label>

@@ -9,6 +9,7 @@ $title = $_POST["title"];
 $author = $_POST["author"];
 $genre = $_POST["genre"];
 $note = $_POST["note"];
+$coverUrl = $_POST["cover_url"];
 
 $checkStmt = $connection->prepare(
     "SELECT id
@@ -31,8 +32,8 @@ if ($duplicateResult->num_rows > 0) {
     die("This book already exists in your library.");
 }
 
-$sql = "INSERT INTO books (title, author, genre, note) 
-        VALUES ('$title', '$author', '$genre', '$note')";
+$sql = "INSERT INTO books (title, author, genre, note, cover_url) 
+        VALUES ('$title', '$author', '$genre', '$note', '$coverUrl')";
 
 if ($connection->query($sql) === TRUE) {
     header("Location: index.php");

@@ -4,9 +4,40 @@
     box-sizing: border-box;
 }
 
+:root {
+
+    /* Background */
+    --bg: #A8D5E3;
+
+    /* Surface */
+    --surface: #1E293B;
+
+    /* Border */
+    --border: #334155;
+
+    /* Text */
+    --text: #F8FAFC;
+
+    /* Secondary text */
+    --muted: #94A3B8;
+
+    /* Brand */
+    --primary: #87379A;
+
+    /* Hover */
+    --primary-hover: #BE4B9A;
+
+    /* Accent */
+    --accent: #2A1C7C;
+
+    /* Delete */
+    --danger: #DC2626;
+}
+
 body {
-    background-color: #0f172a;
-    color: #cbd5e1;
+    background-color: var(--bg);
+    color: var(--muted);
+
     font-family: 'Inter', sans-serif;
     padding: 40px;
 
@@ -21,9 +52,28 @@ body {
 }
 
 h1 {
-    color: #f8fafc;
-    margin-bottom: 20px;
+    font-family: 'Playfair Display', serif;
+    font-size: 64px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    color: var(--text);
+    margin-bottom: 10px;
+
+    animation: heroTitle 0.8s ease-out both;
 }
+
+@keyframes heroTitle {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 
 a {
     color: #38bdf8;
@@ -128,13 +178,17 @@ h1 {
 }
 
 .subtitle {
-    color: #94a3b8;
-    font-size: 1.2rem;
-    margin-bottom: 24px;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin-bottom: 30px;
+
+    animation: heroSubtitle 0.8s ease-out 0.3s both;
 }
 
 .btn-primary {
-    background-color: #38bdf8;
+    background-color: var(--primary);
     color: #0f172a;
     padding: 12px 20px;
     border-radius: 10px;
@@ -143,7 +197,7 @@ h1 {
 }
 
 .btn-primary:hover {
-    background-color: #7dd3fc;
+    background-color: var(--primary-hover);
     text-decoration: none;
 }
 
@@ -196,7 +250,17 @@ h1 {
     background-color: #1e293b;
     border: 1px solid #334155;
     border-radius: 12px;
-    background: hsla(199, 89%, 73%, 0);
+    background: var(--surface);
+    transition: .25s;
+    cursor: pointer;
+}
+
+.search-result-item:hover {
+
+    border-color: var(--primary);
+
+    transform: translateY(-2px);
+
 }
 
 .book-info {
@@ -213,4 +277,149 @@ h1 {
 .author {
     color: #94a3b8;
     font-size: 16px;
+}
+
+form div {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    max-width: 300px;
+    padding: 6px;
+}
+
+.hero-decoration {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 12px;
+
+    animation: heroDecoration 0.8s ease-out both;
+}
+
+.hero-decoration span:first-child,
+.hero-decoration span:last-child {
+    width: 45px;
+    height: 1px;
+    background: var(--primary);
+}
+
+.hero-decoration span:nth-child(2) {
+    color: var(--primary);
+    font-size: 14px;
+}
+
+@keyframes heroDecoration {
+    from {
+        opacity: 0;
+        transform: scaleX(0.5);
+    }
+
+    to {
+        opacity: 1;
+        transform: scaleX(1);
+    }
+}
+
+.library-section {
+    width: 100%;
+    margin-top: 60px;
+}
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.section-heading h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    color: var(--text);
+}
+
+.book-count {
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.library-section {
+    width: 100%;
+    margin-top: 60px;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 24px;
+}
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.section-heading h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    color: var(--text);
+}
+
+.book-count {
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.section-heading {
+    grid-column: 1 / -1;
+}
+
+.library-section>p {
+    grid-column: 1 / -1;
+}
+
+.book-card {
+    background: transparent;
+    border: none;
+    border-radius: 18px;
+    padding: 20px;
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(30, 41, 59, 0.12);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.book-cover {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    display: block;
+}
+
+
+
+.book-card h2,
+.book-card p,
+.book-card .actions {
+    position: relative;
+    z-index: 1;
+}
+
+.book-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 35px rgba(30, 41, 59, 0.22);
 }

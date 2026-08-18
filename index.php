@@ -36,29 +36,42 @@ if (isset($_GET["search"]) && !empty($_GET["search"])) {
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Elys Book Archive</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookNest</title>
+
     <link rel="stylesheet" href="style.css">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
      <div class="page-container">
 
         
-
+<main class="home">
 <div class="hero">
+    <div class="hero-decoration">
+    <span></span>
+    <span>✦</span>
+    <span></span>
+</div>
 
-    <h1>Elys Book Archive</h1>
+
+    <h1>BOOK NEST</h1>
 
     <p class="subtitle">
-        Manage your personal library collection
-    </p>
+    Your personal library,
+    powered by Open Library.
+</p>
 
     <a class="btn btn-primary" href="create.php">
         + Add New Book
     </a>
-    <form action="index.php" method="GET" class="search-form">
+   
+</div>
+ <form action="index.php" method="GET" class="search-form">
 
     <input
         type="text"
@@ -71,15 +84,19 @@ if (isset($_GET["search"]) && !empty($_GET["search"])) {
     </button>
 
 </form>
+<section class="library-section">
 
-</div>
-
-
-
+    <div class="section-heading">
+        <h2>Your Shelf</h2>
+        <span class="book-count">Your collection</span>
+    </div>
     <?php
     if ($result->num_rows > 0) {
         while ($book = $result->fetch_assoc()) {
       echo "<div class='book-card'>";
+      if (!empty($book["cover_url"])) {
+    echo "<img class='book-cover' src='https://covers.openlibrary.org/b/id/" . $book["cover_url"] . "-M.jpg' alt='Cover of " . htmlspecialchars($book["title"]) . "'>";
+}
 
 echo "<h2>" . $book["title"] . "</h2>";
 
@@ -110,6 +127,19 @@ echo "</div>"; // chiude book-card
             echo "<p>Your library is waiting for its first book.</p>";
 }
     ?>
+
+
+
+
+
+
+</section>
+
+</main>
+
+
+
+    
  </div>
 </body>
 </html>
