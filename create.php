@@ -88,6 +88,14 @@ if (isset($_GET["cover"])) {
     </button>
 
 </form>
+<script>
+document.querySelector(".search-form").addEventListener("submit", function () {
+    const button = this.querySelector("button");
+
+    button.textContent = "Searching...";
+    button.disabled = true;
+});
+</script>
 <?php
 if (
     !empty($booksFromApi) &&
