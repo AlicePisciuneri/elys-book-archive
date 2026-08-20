@@ -45,9 +45,47 @@ if (isset($_GET["search"]) && !empty($_GET["search"])) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .account-actions {
+            position: absolute;
+            top: 0;
+            right: 0;
+            display: flex;
+            gap: 10px;
+        }
+
+        .account-actions .btn-primary {
+            padding: 10px 16px;
+        }
+
+        @media (max-width: 600px) {
+            .account-actions {
+                position: static;
+                justify-content: flex-end;
+                margin-bottom: 28px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="ambient-books ambient-books--left" aria-hidden="true">
+        <img class="ambient-book ambient-book--one" src="assets/ambient-book.svg" alt="">
+        <img class="ambient-book ambient-book--two" src="assets/ambient-book.svg" alt="">
+        <img class="ambient-book ambient-book--three" src="assets/ambient-pages.svg" alt="">
+    </div>
+
+    <div class="ambient-books ambient-books--right" aria-hidden="true">
+        <img class="ambient-book ambient-book--one" src="assets/ambient-book.svg" alt="">
+        <img class="ambient-book ambient-book--two" src="assets/ambient-book.svg" alt="">
+        <img class="ambient-book ambient-book--three" src="assets/ambient-pages.svg" alt="">
+    </div>
+
      <div class="page-container">
+
+    <nav class="account-actions" aria-label="Area utente">
+        <a class="btn btn-primary" href="register.php">Registrati</a>
+        <a class="btn btn-primary" href="login.php">Accedi</a>
+    </nav>
 
         
 <main class="home">
@@ -88,7 +126,7 @@ if (isset($_GET["search"]) && !empty($_GET["search"])) {
 
     <div class="section-heading">
         <h2>Your Shelf</h2>
-        <span class="book-count">Your collection</span>
+        <span class="book-count"></span>
     </div>
     <?php
     if ($result->num_rows > 0) {

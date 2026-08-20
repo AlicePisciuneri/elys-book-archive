@@ -105,10 +105,11 @@ document.querySelector(".search-form").addEventListener("submit", function (even
 
     button.textContent = "Searching...";
     button.disabled = true;
-
-    const apiUrl =
-        "https://openlibrary.org/search.json?title=" +
-        encodeURIComponent(searchTerm);
+const apiUrl =
+    "https://openlibrary.org/search.json?title=" +
+    encodeURIComponent(searchTerm) +
+    "&fields=title,author_name,cover_i,first_publish_year" +
+    "&limit=10";
 
     fetch(apiUrl)
         .then(response => response.json())
@@ -118,7 +119,7 @@ document.querySelector(".search-form").addEventListener("submit", function (even
 
     resultsContainer.innerHTML = "";
 
-    data.docs.slice(0, 5).forEach(book => {
+    data.docs.forEach(book => {
 
         const resultItem = document.createElement("div");
 

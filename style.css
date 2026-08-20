@@ -7,25 +7,25 @@
 :root {
 
     /* Background */
-    --bg: #A8D5E3;
+    --bg: #000000;
 
     /* Surface */
-    --surface: #1E293B;
+    --surface: #434343;
 
     /* Border */
     --border: #334155;
 
     /* Text */
-    --text: #F8FAFC;
+    --text: #ffff;
 
     /* Secondary text */
-    --muted: #94A3B8;
+    --muted: #ffff;
 
     /* Brand */
-    --primary: #87379A;
+    --primary: #3ae075;
 
     /* Hover */
-    --primary-hover: #BE4B9A;
+    --primary-hover: #3ae075;
 
     /* Accent */
     --accent: #2A1C7C;
@@ -44,6 +44,113 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+/* Decorative layer: kept outside the app content so it cannot affect cards or controls. */
+.ambient-books {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: max(90px, calc((100vw - 980px) / 2));
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.ambient-books--left {
+    left: 0;
+}
+
+.ambient-books--right {
+    right: 0;
+}
+
+.ambient-book {
+    position: absolute;
+    display: block;
+    width: clamp(54px, 7vw, 98px);
+    height: auto;
+    opacity: 0.42;
+    filter: drop-shadow(0 14px 16px rgba(58, 224, 117, 0.14));
+    animation: ambientFloat 10s ease-in-out infinite;
+}
+
+.ambient-books--left .ambient-book--one {
+    top: 16%;
+    left: 18%;
+    transform: rotate(-13deg);
+    animation-delay: -2s;
+}
+
+.ambient-books--left .ambient-book--two {
+    top: 54%;
+    right: 9%;
+    width: clamp(44px, 5.5vw, 76px);
+    transform: rotate(10deg);
+    animation-duration: 13s;
+    animation-delay: -7s;
+}
+
+.ambient-books--left .ambient-book--three {
+    bottom: 9%;
+    left: 12%;
+    width: clamp(58px, 7.5vw, 108px);
+    transform: rotate(-7deg);
+    animation-duration: 11s;
+    animation-delay: -4s;
+}
+
+.ambient-books--right .ambient-book--one {
+    top: 11%;
+    right: 17%;
+    transform: rotate(12deg) scaleX(-1);
+    animation-duration: 12s;
+    animation-delay: -5s;
+}
+
+.ambient-books--right .ambient-book--two {
+    top: 48%;
+    left: 9%;
+    width: clamp(45px, 5.7vw, 78px);
+    transform: rotate(-9deg) scaleX(-1);
+    animation-duration: 9s;
+    animation-delay: -1s;
+}
+
+.ambient-books--right .ambient-book--three {
+    bottom: 13%;
+    right: 8%;
+    width: clamp(58px, 7.5vw, 108px);
+    transform: rotate(8deg) scaleX(-1);
+    animation-duration: 14s;
+    animation-delay: -9s;
+}
+
+@keyframes ambientFloat {
+    0%, 100% {
+        margin-top: 0;
+    }
+
+    50% {
+        margin-top: -15px;
+    }
+}
+
+.page-container {
+    position: relative;
+    z-index: 1;
+}
+
+@media (max-width: 1120px) {
+    .ambient-books {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ambient-book {
+        animation: none;
+    }
 }
 
 .page-container {
@@ -386,15 +493,15 @@ textarea {
     flex-direction: column;
     justify-content: flex-end;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     box-shadow: 0 8px 20px rgba(30, 41, 59, 0.12);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .book-cover {
     width: 100%;
-    height: 280px;
-    object-fit: cover;
+    height: auto;
+    object-fit: contain;
     display: block;
 }
 
@@ -410,4 +517,76 @@ textarea {
 .book-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 16px 35px rgba(30, 41, 59, 0.22);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 24px;
+    }
+
+    h1 {
+        font-size: 2.4rem;
+    }
+
+    .search-form,
+    .actions {
+        flex-wrap: wrap;
+    }
+
+    .search-form {
+        flex-direction: column;
+    }
+
+    .search-form .btn-primary {
+        width: 100%;
+        text-align: center;
+    }
+
+    .search-result-item {
+        align-items: flex-start;
+        gap: 14px;
+    }
+
+    .book-card {
+        min-height: auto;
+    }
+
+    input[type="text"],
+    textarea {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 18px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .section-heading h2 {
+        font-size: 1.75rem;
+    }
+
+    .search-result-item {
+        flex-direction: column;
+    }
+
+    .search-result-item .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .actions .btn {
+        flex: 1 1 100%;
+        text-align: center;
+    }
 }
