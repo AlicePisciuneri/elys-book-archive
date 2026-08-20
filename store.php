@@ -31,13 +31,30 @@ $duplicateResult = $checkStmt->get_result();
 if ($duplicateResult->num_rows > 0) {
     die("This book already exists in your library.");
 }
+$stmt = $connection->prepare(
+    "INSERT INTO books (title, author, genre, note, cover_url)
+     VALUES (?, ?, ?, ?, ?)"
+);
 
-$sql = "INSERT INTO books (title, author, genre, note, cover_url) 
-        VALUES ('$title', '$author', '$genre', '$note', '$coverUrl')";
+$stmt->bind_param(
+    "sssss",
+    $title,
+    $author,
+    $genre,
+    $note,
+    $coverUrl
+);
 
-if ($connection->query($sql) === TRUE) {
+if ($stmt->execute()) {
+
+    if (isset($_POST["import"]) && $_POST["import"] === "1") {
+        echo "Book imported successfully.";
+        exit;
+    }
+
     header("Location: index.php");
     exit;
+
 } else {
     echo "Errore nel salvataggio: " . $connection->error;
 }

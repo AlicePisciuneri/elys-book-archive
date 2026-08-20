@@ -88,13 +88,113 @@ if (isset($_GET["cover"])) {
     </button>
 
 </form>
+<div id="search-results"></div>
+
 <script>
-document.querySelector(".search-form").addEventListener("submit", function () {
+document.querySelector(".search-form").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const searchInput = this.querySelector("input[name='search']");
     const button = this.querySelector("button");
+
+    const searchTerm = searchInput.value.trim();
+
+    if (searchTerm === "") {
+        return;
+    }
 
     button.textContent = "Searching...";
     button.disabled = true;
+
+    const apiUrl =
+        "https://openlibrary.org/search.json?title=" +
+        encodeURIComponent(searchTerm);
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+
+    const resultsContainer = document.querySelector("#search-results");
+
+    resultsContainer.innerHTML = "";
+
+    data.docs.slice(0, 5).forEach(book => {
+
+        const resultItem = document.createElement("div");
+
+        resultItem.className = "search-result-item";
+
+        const title = book.title || "Unknown title";
+        const coverId = book.cover_i || "";
+
+        const author =
+            book.author_name && book.author_name.length > 0
+                ? book.author_name[0]
+                : "Unknown author";
+
+                 
+
+       resultItem.innerHTML = `
+    <div class="book-info">
+        <h3>${title}</h3>
+        <p class="author">${author}</p>
+    </div>
+
+    <button type="button" class="btn btn-import">
+        Import
+    </button>
+`;
+const importButton = resultItem.querySelector(".btn-import");
+
+importButton.addEventListener("click", function () {
+
+    const formData = new URLSearchParams();
+
+    formData.append("title", title);
+    formData.append("author", author);
+    formData.append("genre", "");
+    formData.append("note", "");
+    formData.append("cover_url", coverId);
+    formData.append("import", "1");
+
+    fetch("store.php", {
+        method: "POST",
+        body: formData
+    })
+        .then(response => response.text())
+        .then(message => {
+
+            console.log("IMPORT RESPONSE:", message);
+
+            if (message === "Book imported successfully.") {
+                window.location.href = "index.php";
+            } else {
+                alert(message);
+            }
+
+        })
+        .catch(error => {
+            console.error("Import error:", error);
+            alert("Import failed.");
+        });
+
 });
+
+
+
+        resultsContainer.appendChild(resultItem);
+    });
+})
+        
+        .catch(error => {
+            console.error("Search error:", error);
+        })
+        .finally(() => {
+            button.textContent = "Search";
+            button.disabled = false;
+        });
+});
+
 </script>
 <?php
 if (
@@ -199,10 +299,12 @@ echo "</div>";
     required
 >
         </div>
-        <input
+  <input
     type="hidden"
+    id="cover_url"
     name="cover_url"
     value="<?php echo htmlspecialchars($importCover); ?>"
+>
 >
 
         <div>
