@@ -133,9 +133,19 @@ if (isset($_GET["search"]) && !empty($_GET["search"])) {
         while ($book = $result->fetch_assoc()) {
       echo "<div class='book-card'>";
       if (!empty($book["cover_url"])) {
-    echo "<img class='book-cover' src='https://covers.openlibrary.org/b/id/" . $book["cover_url"] . "-M.jpg' alt='Cover of " . htmlspecialchars($book["title"]) . "'>";
-}
+          $coverSource = $book["cover_url"];
 
+          if (preg_match('/^https?:\/\//i', $book["cover_url"])) {
+              $coverSource = $book["cover_url"];
+          } elseif (preg_match('/^uploads\//', $book["cover_url"])) {
+              $coverSource = $book["cover_url"];
+          } else {
+              $coverSource = "https://covers.openlibrary.org/b/id/" . $book["cover_url"] . "-M.jpg";
+          }
+
+          echo "<img class='book-cover' src='" . htmlspecialchars($coverSource) . "' alt='Cover of " . htmlspecialchars($book["title"]) . "'>";
+      }
+ 
 echo "<h2>" . $book["title"] . "</h2>";
 
 echo "<p><strong>Author:</strong> " . $book["author"] . "</p>";

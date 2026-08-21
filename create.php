@@ -278,48 +278,58 @@ echo "</div>";
     <div class="section-divider">
     <span>Manual entry</span>
 </div>
-    <form action="store.php" method="POST">
+   <form action="store.php" method="POST" enctype="multipart/form-data">
         <div>
             <label for="title">Title</label>
             <input
-    type="text"
-    id="title"
-    name="title"
-    value="<?php echo htmlspecialchars($importTitle); ?>"
-    required
->
+               type="text"
+               id="title"
+               name="title"
+               value="<?php echo htmlspecialchars($importTitle); ?>"
+               required
+           >
         </div>
 
         <div>
             <label for="author">Author</label>
             <input
-    type="text"
-    id="author"
-    name="author"
-    value="<?php echo htmlspecialchars($importAuthor); ?>"
-    required
->
-        </div>
-  <input
-    type="hidden"
-    id="cover_url"
-    name="cover_url"
-    value="<?php echo htmlspecialchars($importCover); ?>"
->
->
-
-        <div>
-            <label for="genre">Genre</label>
-            <input type="text" id="genre" name="genre">
+               type="text"
+               id="author"
+               name="author"
+               value="<?php echo htmlspecialchars($importAuthor); ?>"
+               required
+           >
         </div>
 
-        <div>
-            <label for="note">Note</label>
-            <textarea id="note" name="note" rows="4"></textarea>
+       <input
+           type="hidden"
+           id="cover_url"
+           name="cover_url"
+           value="<?php echo htmlspecialchars($importCover); ?>"
+       >
+
+       <div class="photo-upload-field">
+           <label for="photo">📷 Carica la tua foto</label>
+           <input
+               type="file"
+               id="photo"
+               name="photo"
+               accept="image/*"
+           >
         </div>
 
-        <button type="submit">Save</button>
-    </form>
+       <div>
+           <label for="genre">Genre</label>
+           <input type="text" id="genre" name="genre">
+       </div>
+
+       <div>
+           <label for="note">Note</label>
+           <textarea id="note" name="note" rows="4"></textarea>
+       </div>
+
+       <button type="submit" class="btn btn-primary">Save</button>
+   </form>
 
     <div style="margin-top: 20px;">
         <a href="index.php">Go back to the list</a>

@@ -384,6 +384,20 @@ label {
     font-weight: bold;
 }
 
+.photo-upload-field {
+    margin-bottom: 20px;
+}
+
+.photo-upload-field input[type="file"] {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #334155;
+    background-color: #111827;
+    color: var(--text);
+}
+
 input[type="text"],
 textarea {
     width: 100%;
