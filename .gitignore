@@ -1,0 +1,7 @@
+# Credenziali locali e di produzione
+config.php
+config.example.php
+
+# File di sistema
+.DS_Store
+Thumbs.db

@@ -1,22 +1,26 @@
 <?php
 
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
+$configFile = __DIR__ . "/config.php";
 
-$server_name = "localhost";
-$user_name = "root";
-$password = "root";
-$database_name = "elys_book_archive";
+if (!is_file($configFile)) {
+    http_response_code(500);
+    exit("Configurazione del database non trovata.");
+}
+
+$config = require $configFile;
 
 $connection = new mysqli(
-    $server_name,
-    $user_name,
-    $password,
-    $database_name,
-    8889
+    $config["host"],
+    $config["username"],
+    $config["password"],
+    $config["database"],
+    $config["port"]
 );
 
 if ($connection->connect_error) {
-    die("Connessione fallita: " . $connection->connect_error);
+    http_response_code(500);
+    exit("Connessione al database non riuscita.");
 }
+
+$connection->set_charset("utf8mb4");
 

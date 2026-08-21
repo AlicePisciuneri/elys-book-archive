@@ -3,7 +3,10 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+require_once "auth.php";
 require_once "database.php";
+requireLogin();
+$userId = (int) $_SESSION["user_id"];
 
 $title = trim($_POST["title"] ?? "");
 $author = trim($_POST["author"] ?? "");
@@ -46,12 +49,12 @@ if (isset($_FILES["photo"]) && $_FILES["photo"]["error"] !== UPLOAD_ERR_NO_FILE)
 $checkStmt = $connection->prepare(
     "SELECT id
      FROM books
-     WHERE title = ?
-     AND author = ?"
+     WHERE user_id = ? AND title = ? AND author = ?"
 );
 
 $checkStmt->bind_param(
-    "ss",
+    "iss",
+    $userId,
     $title,
     $author
 );
@@ -65,12 +68,13 @@ if ($duplicateResult->num_rows > 0) {
 }
 
 $stmt = $connection->prepare(
-    "INSERT INTO books (title, author, genre, note, cover_url)
-     VALUES (?, ?, ?, ?, ?)"
+    "INSERT INTO books (user_id, title, author, genre, note, cover_url)
+     VALUES (?, ?, ?, ?, ?, ?)"
 );
 
 $stmt->bind_param(
-    "sssss",
+    "isssss",
+    $userId,
     $title,
     $author,
     $genre,

@@ -3,7 +3,10 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+require_once "auth.php";
 require_once "database.php";
+requireLogin();
+$userId = (int) $_SESSION["user_id"];
 
 if (
     !isset($_POST["id"]) ||
@@ -26,16 +29,17 @@ if (empty($title) || empty($author)) {
 $stmt = $connection->prepare(
     "UPDATE books
      SET title = ?, author = ?, genre = ?, note = ?
-     WHERE id = ?"
+     WHERE id = ? AND user_id = ?"
 );
 
 $stmt->bind_param(
-    "ssssi",
+    "ssssii",
     $title,
     $author,
     $genre,
     $note,
-    $id
+    $id,
+    $userId
 );
 
 if ($stmt->execute()) {

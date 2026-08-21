@@ -3,7 +3,10 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+require_once "auth.php";
 require_once "database.php";
+requireLogin();
+$userId = (int) $_SESSION["user_id"];
 
 if (isset($_GET["search"]) && !empty($_GET["search"])) {
 
@@ -12,12 +15,11 @@ if (isset($_GET["search"]) && !empty($_GET["search"])) {
     $stmt = $connection->prepare(
         "SELECT *
          FROM books
-         WHERE title LIKE ?
-         OR author LIKE ?
+        WHERE user_id = ? AND (title LIKE ? OR author LIKE ?)
          ORDER BY created_at DESC"
     );
 
-    $stmt->bind_param("ss", $search, $search);
+    $stmt->bind_param("iss", $userId, $search, $search);
 
     $stmt->execute();
 
@@ -25,9 +27,10 @@ if (isset($_GET["search"]) && !empty($_GET["search"])) {
 
 } else {
 
-    $sql = "SELECT * FROM books ORDER BY created_at DESC";
-
-    $result = $connection->query($sql);
+    $stmt = $connection->prepare("SELECT * FROM books WHERE user_id = ? ORDER BY created_at DESC");
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
 }
 ?>

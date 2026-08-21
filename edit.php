@@ -3,7 +3,10 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+require_once "auth.php";
 require_once "database.php";
+requireLogin();
+$userId = (int) $_SESSION["user_id"];
 
 if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
     die("ID libro non valido o mancante.");
@@ -11,8 +14,8 @@ if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
 
 $id = (int)$_GET["id"];
 
-$stmt = $connection->prepare("SELECT * FROM books WHERE id = ?");
-$stmt->bind_param("i", $id);
+$stmt = $connection->prepare("SELECT * FROM books WHERE id = ? AND user_id = ?");
+$stmt->bind_param("ii", $id, $userId);
 $stmt->execute();
 $result = $stmt->get_result();
 
